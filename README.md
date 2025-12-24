@@ -15,9 +15,10 @@ The system is designed to:
 Query 1: JOIN
 
 Requirement:
-Booking information er shathe Customer name & Vehicle name dekhano
+Display booking information along with Customer name and Vehicle name.
 
-SQL Query
+SQL Query:
+
 SELECT
     b.booking_id,
     u.name AS customer_name,
@@ -32,11 +33,12 @@ INNER JOIN vehicles v
     ON b.vehicle_id = v.vehicle_id
 ORDER BY b.booking_id;
 
-Concept Used
 
+Concept Used:
 INNER JOIN
 
-Output
+Output:
+
 booking_id | customer_name | vehicle_name     | start_date | end_date   | status
 1          | Alice         | Honda Civic      | 2023-10-01 | 2023-10-05 | completed
 2          | Alice         | Honda Civic      | 2023-11-01 | 2023-11-03 | completed
@@ -45,13 +47,13 @@ booking_id | customer_name | vehicle_name     | start_date | end_date   | status
 
 
 
-
 Query 2: EXISTS
 
 Requirement:
-Jei vehicles kono booking e use hoy nai, segulo ber kora
+Find vehicles that have never been booked.
 
-SQL Query
+SQL Query:
+
 SELECT *
 FROM vehicles v
 WHERE NOT EXISTS (
@@ -60,46 +62,44 @@ WHERE NOT EXISTS (
     WHERE b.vehicle_id = v.vehicle_id
 );
 
-Concept Used
 
+Concept Used:
 NOT EXISTS
 
-Output
+Output:
+
 vehicle_id | name        | type  | model | registration_number | rental_price | status
 3          | Yamaha R15  | bike  | 2023  | GHI-789             | 30           | available
 4          | Ford F-150  | truck | 2020  | JKL-012             | 100          | maintenance
 
-✅ Query 3: WHERE
+Query 3: WHERE
 
 Requirement:
-Specific type er available vehicles 
+Retrieve available vehicles of a specific type (e.g., cars).
 
-SQL Query
+SQL Query:
+
 SELECT *
 FROM vehicles
 WHERE status = 'available'
   AND type = 'car';
 
-Concept Used
 
-SELECT
+Concept Used:
+SELECT, WHERE
 
-WHERE
+Output:
 
-Output
 vehicle_id | name            | type | model | registration_number | rental_price | status
 1          | Toyota Corolla  | car  | 2022  | ABC-123             | 50           | available
-
-
-
 
 Query 4: GROUP BY & HAVING
 
 Requirement:
-Prottek vehicle er total bookings count ber kora
-shudhu sei vehicle dekhano jader booking 2 er beshi
+Count total bookings for each vehicle and display only those vehicles with more than 2 bookings.
 
-SQL Query
+SQL Query:
+
 SELECT
     v.name AS vehicle_name,
     COUNT(b.booking_id) AS total_bookings
@@ -109,14 +109,11 @@ INNER JOIN vehicles v
 GROUP BY v.name
 HAVING COUNT(b.booking_id) > 2;
 
-Concept Used
 
-GROUP BY
+Concept Used:
+GROUP BY, HAVING, COUNT
 
-HAVING
+Output:
 
-COUNT
-
-Output
 vehicle_name | total_bookings
-Honda Civic | 3
+Honda Civic  | 3
